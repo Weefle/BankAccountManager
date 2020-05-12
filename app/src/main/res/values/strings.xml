@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">BankAccountManager</string>
     <string name="title_home">Account</string>
-    <string name="title_dashboard">Wallets</string>
+    <string name="title_wallet">Wallets</string>
     <string name="title_transfer">Transfer</string>
     <string name="wallet_default_balance">Balance</string>
     <string name="wallet_default_name">Wallet Name</string>

@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
             startActivity(new Intent(this, HomeActivity.class));
+            finish();
         }
 
         editTextEmail = findViewById(R.id.editTextEmail);
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                finish();
             }
         });
 
@@ -47,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(editTextEmail.getText().toString().contains("@")) {
                     FirebaseAuth.getInstance().sendPasswordResetEmail(editTextEmail.getText().toString());
-                    Toast.makeText(MainActivity.this, "A verification email has been sent to your email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "✔ A verification email has been sent to your email address!", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(MainActivity.this, "Please enter a correct email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "❌ Please enter a correct email address!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -65,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "✔ Successfully logged in!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                            finish();
                         }else{
-                            Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "❌ Wrong password!", Toast.LENGTH_LONG).show();
                         }
 
                     }

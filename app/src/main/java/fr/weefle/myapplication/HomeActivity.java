@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     fragment = new HomeFragment();
                     break;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_wallet:
                     fragment = new WalletFragment();
                     break;
                 case R.id.navigation_transfer:
@@ -48,8 +48,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView.setSelectedItemId(R.id.navigation_wallet);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commit();
 
 
     }

@@ -15,6 +15,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button buttonRegister;
 
     TextView textViewLogin;
+    //String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,9 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String userName = editTextUsername.getText().toString().trim();
+                final String userName = editTextUsername.getText().toString().trim();
                 String email = editTextEmail.getText().toString().trim();
-                String password = editTextPassword.getText().toString().trim();
+                final String password = editTextPassword.getText().toString().trim();
                 String passwordConf = editTextCnfPassword.getText().toString().trim();
 
                 if (password.equals(passwordConf)) {
@@ -56,16 +59,32 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if(task.isSuccessful()){
+
+                               /* userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("userName", userName);
+                                user.put("userPassword", password);
+                                ref.set(user);*/
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                        .setDisplayName(userName)
+                                        .build();
+
+                                user.updateProfile(profileUpdates);
+                                Toast.makeText(RegisterActivity.this, "✔ Successfully registered!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                finish();
                             }else{
-                                Toast.makeText(RegisterActivity.this, "Register Error", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterActivity.this, "❌ Couldn't register, you need at least 6 digits", Toast.LENGTH_LONG).show();
                             }
 
                         }
                     });
 
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Password is not matching", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "❌ Password is not matching", Toast.LENGTH_SHORT).show();
 
                 }
             }

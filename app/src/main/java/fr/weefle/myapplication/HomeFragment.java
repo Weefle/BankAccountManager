@@ -12,9 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class HomeFragment extends Fragment {
 
@@ -25,6 +34,7 @@ public class HomeFragment extends Fragment {
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog dialog;
     private LayoutInflater inflater;
+    //String userID;
 
 
     @Override
@@ -35,6 +45,16 @@ public class HomeFragment extends Fragment {
         textViewEmail = rootView.findViewById(R.id.textViewEmail);
         textViewLogout = rootView.findViewById(R.id.textViewLogout);
 
+       /* userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
+        ref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                textViewName.setText(documentSnapshot.getString("userName"));
+
+            }
+        });*/
         textViewName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         textViewEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -84,11 +104,21 @@ public class HomeFragment extends Fragment {
                 Log.d("check", editTextConfPasswordPopup.getText().toString());
 
                 if (editTextConfPasswordPopup.getText().toString().equals(editTextPasswordPopup.getText().toString()) ) {
-                    FirebaseAuth.getInstance().getCurrentUser().updatePassword(editTextConfPasswordPopup.getText().toString());
-                    Toast.makeText(getActivity(), "✔ Password correctly changed", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    FirebaseAuth.getInstance().getCurrentUser().updatePassword(editTextConfPasswordPopup.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                FirebaseAuth.getInstance().signOut();
+                                Toast.makeText(getActivity(), "✔ Password correctly changed!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity(), MainActivity.class));
+                            }else{
+                                Toast.makeText(getActivity(), "❌ Couldn't change password, you need at least 6 digits!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 } else{
-                    Toast.makeText(getActivity(), "❌ Password is not the same", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "❌ Password is not the same!", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
 
@@ -117,10 +147,10 @@ public class HomeFragment extends Fragment {
 
                 if (!editTextEmail.getText().toString().isEmpty()) {
                     FirebaseAuth.getInstance().getCurrentUser().updateEmail(editTextEmail.getText().toString());
-                    Toast.makeText(getActivity(), "✔ Details correctly changed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 } else {
-                    Toast.makeText(getActivity(), "❌ Missing details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "❌ Missing details!", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
 
