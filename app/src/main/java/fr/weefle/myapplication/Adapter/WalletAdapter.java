@@ -1,5 +1,6 @@
 package fr.weefle.myapplication.Adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import fr.weefle.myapplication.HomeActivity;
 import fr.weefle.myapplication.MainActivity;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
@@ -109,6 +111,9 @@ public class WalletAdapter extends BaseAdapter {
 
                 //TODO delete wallet on database
 
+                context.startActivity(new Intent(context, HomeActivity.class));
+                ((Activity)context).finish();
+
             }
         });
 
@@ -120,7 +125,8 @@ public class WalletAdapter extends BaseAdapter {
                 if (!editTextname.getText().toString().isEmpty()) {
                     //db.updateWallet(wallet);
                     Toast.makeText(context, "✔ Details correctly changed", Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context, MainActivity.class));
+                    context.startActivity(new Intent(context, HomeActivity.class));
+                    ((Activity)context).finish();
                 } else {
                     Toast.makeText(context, "❌ Missing details", Toast.LENGTH_SHORT).show();
                 }
