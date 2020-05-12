@@ -1,47 +1,56 @@
 package fr.weefle.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
-import fr.weefle.myapplication.Data.DatabaseHelper;
-import fr.weefle.myapplication.Model.User;
 
 public class MainActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     Button buttonLogin;
-    TextView textViewRegister;
-    DatabaseHelper db;
-    FirebaseAuth auth;
+    TextView textViewRegister, textViewReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        auth = FirebaseAuth.getInstance();
-        if(auth.getCurrentUser()!=null){
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
             startActivity(new Intent(this, HomeActivity.class));
         }
 
-        db = new DatabaseHelper(this);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
 
         textViewRegister = findViewById(R.id.textViewRegister);
+        textViewReset = findViewById(R.id.textViewReset);
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+            }
+        });
+
+        textViewReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(editTextEmail.getText().toString().contains("@")) {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(editTextEmail.getText().toString());
+                    Toast.makeText(MainActivity.this, "A verification email has been sent to your email address!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(MainActivity.this, "Please enter a correct email address!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -51,33 +60,19 @@ public class MainActivity extends AppCompatActivity {
                     String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                Toast.makeText(MainActivity.this, email + " : " + password, Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                auth.createUserWithEmailAndPassword(email, password);
+                        if(task.isSuccessful()){
+                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                        }else{
+                            Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_LONG).show();
+                        }
 
-                Boolean res = db.checkUser(email, password);
-                User user = new User();
-                Log.d("IDdetails", String.valueOf(user.getId()));
+                    }
+                });
 
-
-                if (res == true) {
-                    Intent HomePage = new Intent(MainActivity.this, HomeActivity.class);
-                    Bundle b = new Bundle();
-                    b.putString("textViewEmail", editTextEmail.getText().toString());
-                    b.putString("textViewPassword", editTextPassword.getText().toString());
-
-                    String y = db.selectOneUserSendUserName(email, password);
-                    int x = db.selectOneUserSendId(email,password);
-                    Log.d("TAG" , "ID =  " + x);
-
-                    b.putString("textViewUsername",y);
-                    b.putString("textViewId", String.valueOf(x));
-
-                    HomePage.putExtras(b);
-                    startActivity(HomePage);
-                } else {
-                    Toast.makeText(MainActivity.this, "Login Error", Toast.LENGTH_LONG).show();
-                }
             }
         });
 

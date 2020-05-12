@@ -27,18 +27,10 @@
                 android:textStyle="italic" />
 
             <EditText
-                android:id="@+id/editTextUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tile"
-                android:hint="UserName"
-                android:textSize="18sp" />
-
-            <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/editTextUsername"
+                android:layout_below="@id/tile"
                 android:layout_marginTop="15dp"
                 android:hint="Email"
 

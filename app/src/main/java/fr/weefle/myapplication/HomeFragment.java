@@ -16,12 +16,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import fr.weefle.myapplication.Data.DatabaseHelper;
-import fr.weefle.myapplication.Model.User;
-
 public class HomeFragment extends Fragment {
 
-    TextView textViewUserName, textViewName, textViewPassword, textViewEmail, textViewLogout;
+    TextView textViewName, textViewEmail, textViewLogout;
 
     Button btnEditDetails, btnChangePassword;
 
@@ -29,43 +26,17 @@ public class HomeFragment extends Fragment {
     private AlertDialog dialog;
     private LayoutInflater inflater;
 
-    String textViewUsernameString;
-    String textViewNameString;
-    String textViewEmailString;
-    String textViewPasswordString;
-    int textViewID;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        textViewUserName = rootView.findViewById(R.id.textViewUserName);
         textViewName = rootView.findViewById(R.id.textViewName);
-        textViewPassword = rootView.findViewById(R.id.textViewPassword);
         textViewEmail = rootView.findViewById(R.id.textViewEmail);
         textViewLogout = rootView.findViewById(R.id.textViewLogout);
 
-        final Bundle b = getActivity().getIntent().getExtras();
-
-
-        textViewID = Integer.parseInt(b.getString("textViewId"));
-        textViewUsernameString = b.getString("textViewUsername");
-        textViewNameString = b.getString("textViewUsername");
-        textViewEmailString = b.getString("textViewEmail");
-        textViewPasswordString = b.getString("textViewPassword");
-
-
-        Log.d("Data", String.valueOf(textViewID));
-        Log.d("Data", "User name: " + textViewUsernameString);
-        Log.d("Data", "name: " + textViewNameString);
-        Log.d("Data", "Email: " + textViewEmailString);
-        Log.d("Data", "password: " + textViewPasswordString);
-
-        textViewUserName.setText("Hello " + textViewUsernameString);
-        textViewName.setText(textViewNameString);
-        textViewPassword.setText(textViewPasswordString);
-        textViewEmail.setText(textViewEmailString);
+        textViewName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        textViewEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         textViewLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,15 +75,6 @@ public class HomeFragment extends Fragment {
         dialog = alertDialogBuilder.create();
         dialog.show();
 
-        final User user = new User();
-        user.setId(textViewID);
-        user.setUserName(textViewNameString);
-        user.setEmail(textViewEmailString);
-        user.setPassword(textViewPasswordString);
-
-
-        final DatabaseHelper db = new DatabaseHelper(getActivity());
-
         Button saveButtonPassword = view.findViewById(R.id.saveButtonPassword);
 
         saveButtonPassword.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +84,7 @@ public class HomeFragment extends Fragment {
                 Log.d("check", editTextConfPasswordPopup.getText().toString());
 
                 if (editTextConfPasswordPopup.getText().toString().equals(editTextPasswordPopup.getText().toString()) ) {
-                    user.setPassword(editTextConfPasswordPopup.getText().toString());
-                    db.updateUser(user);
+                    FirebaseAuth.getInstance().getCurrentUser().updatePassword(editTextConfPasswordPopup.getText().toString());
                     Toast.makeText(getActivity(), "✔ Password correctly changed", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 } else{
@@ -140,35 +101,22 @@ public class HomeFragment extends Fragment {
         alertDialogBuilder = new AlertDialog.Builder(getActivity());
         inflater = LayoutInflater.from(getActivity());
         final View view = inflater.inflate(R.layout.popup, null);
-        final EditText editTextUsername = view.findViewById(R.id.editTextUsername);
         final EditText editTextEmail = view.findViewById(R.id.editTextEmail);
 
         alertDialogBuilder.setView(view);
         dialog = alertDialogBuilder.create();
         dialog.show();
 
-        final User user = new User();
-        user.setId(textViewID);
-        user.setUserName(textViewNameString);
-        user.setEmail(textViewEmailString);
-        user.setPassword(textViewPasswordString);
-
-        editTextUsername.setText(user.getUserName());
-        editTextEmail.setText(user.getEmail());
-
-        final DatabaseHelper db = new DatabaseHelper(getActivity());
+        editTextEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
         Button saveButton = view.findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.setUserName(editTextUsername.getText().toString());
-                user.setEmail(editTextEmail.getText().toString());
 
-                if (!editTextUsername.getText().toString().isEmpty()
-                        && !editTextEmail.getText().toString().isEmpty()) {
-                    db.updateUser(user);
+                if (!editTextEmail.getText().toString().isEmpty()) {
+                    FirebaseAuth.getInstance().getCurrentUser().updateEmail(editTextEmail.getText().toString());
                     Toast.makeText(getActivity(), "✔ Details correctly changed", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 } else {

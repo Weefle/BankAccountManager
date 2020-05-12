@@ -45,12 +45,4 @@ public class Wallet {
     }
 
 
-    @Override
-    public String toString() {
-        return "Wallet{" +
-                ", name='" + name + '\'' +
-                ", balance=" + balance +
-                ", transactions=" + transactions +
-                '}';
-    }
 }

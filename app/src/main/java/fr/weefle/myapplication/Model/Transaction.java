@@ -1,7 +1,5 @@
 package fr.weefle.myapplication.Model;
 
-import java.util.ArrayList;
-
 public class Transaction {
 
     private String name;

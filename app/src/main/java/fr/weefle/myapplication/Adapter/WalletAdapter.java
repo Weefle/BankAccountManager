@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import fr.weefle.myapplication.Data.DatabaseHelper;
 import fr.weefle.myapplication.MainActivity;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
@@ -99,7 +98,7 @@ public class WalletAdapter extends BaseAdapter {
         //Toast.makeText(context, wallet.getName(), Toast.LENGTH_SHORT).show();
         editTextname.setText(wallet.getName());
 
-        final DatabaseHelper db = new DatabaseHelper(context);
+
 
         Button saveButtonWallet = view.findViewById(R.id.saveButtonWallet);
         Button deleteButtonWallet = view.findViewById(R.id.deleteButtonWallet);

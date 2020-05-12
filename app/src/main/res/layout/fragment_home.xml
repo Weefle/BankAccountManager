@@ -9,19 +9,6 @@
     android:background="@drawable/bg">
 
     <TextView
-        android:id="@+id/textViewUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="welcome_user"
-        android:textColor="#123456"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textViewLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -122,28 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Password:    "
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="#000"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/textViewPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:text="password"
-                        android:textSize="23sp"
-                        android:textStyle="italic" />
-
-                </LinearLayout>
+                    android:orientation="horizontal"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"

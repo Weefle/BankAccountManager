@@ -90,6 +90,19 @@
             android:textSize="13dp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/textViewReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="sans-serif"
+            android:padding="10dp"
+            android:text="I Forgot My Password!"
+            android:textAllCaps="true"
+            android:textColor="#FAD0E1"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
