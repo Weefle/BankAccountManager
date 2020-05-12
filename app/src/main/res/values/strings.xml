@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">BankAccountManager</string>
+    <string name="title_home">Account</string>
+    <string name="title_dashboard">Wallets</string>
+    <string name="title_transfer">Transfer</string>
+    <string name="wallet_default_balance">Balance</string>
+    <string name="wallet_default_name">Wallet Name</string>
+    <string name="trans_default_name">Transaction Name</string>
+    <string name="trans_default_price">Price</string>
+
+    <string-array name="country_arrays">
+        <item>Choose Country</item>
+        <item>Bangladesh</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "238139222365",
+    "firebase_url": "https://waze-9833d.firebaseio.com",
+    "project_id": "waze-9833d",
+    "storage_bucket": "waze-9833d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238139222365:android:45e7180e76e9bd3a8b60b4",
+        "android_client_info": {
+          "package_name": "fr.weefle.bankaccount"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS3cslKec0SEMgozfCEfcPg9SplVL1On8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238139222365:android:de16e969adb9c33d8b60b4",
+        "android_client_info": {
+          "package_name": "fr.weefle.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS3cslKec0SEMgozfCEfcPg9SplVL1On8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
