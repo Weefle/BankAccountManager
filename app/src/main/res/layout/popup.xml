@@ -30,6 +30,7 @@
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:layout_below="@id/tile"
                 android:layout_marginTop="15dp"
                 android:hint="Email"

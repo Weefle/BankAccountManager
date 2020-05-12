@@ -63,6 +63,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
             }
         });
 
@@ -111,6 +112,7 @@ public class HomeFragment extends Fragment {
                                 FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(getActivity(), "✔ Password correctly changed!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
+                                getActivity().finish();
                             }else{
                                 Toast.makeText(getActivity(), "❌ Couldn't change password, you need at least 6 digits!", Toast.LENGTH_SHORT).show();
                             }
@@ -146,9 +148,20 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 if (!editTextEmail.getText().toString().isEmpty()) {
-                    FirebaseAuth.getInstance().getCurrentUser().updateEmail(editTextEmail.getText().toString());
-                    Toast.makeText(getActivity(), "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getActivity(), MainActivity.class));
+                    FirebaseAuth.getInstance().getCurrentUser().updateEmail(editTextEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                FirebaseAuth.getInstance().signOut();
+                                Toast.makeText(getActivity(), "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getActivity(), MainActivity.class));
+                                getActivity().finish();
+                            }else{
+                                Toast.makeText(getActivity(), "❌ Couldn't change details!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 } else {
                     Toast.makeText(getActivity(), "❌ Missing details!", Toast.LENGTH_SHORT).show();
                 }
