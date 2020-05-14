@@ -40,11 +40,8 @@ import fr.weefle.myapplication.Model.Wallet;
 public class WalletFragment extends Fragment {
 
     //TODO the arraylist wil come from the arraylist from user account
-    //private ArrayList<Wallet> wallets;
-    //public static ArrayList<Transaction> transactions;
+    private ArrayList<Wallet> wallets = new ArrayList<>();
 
-   // private Wallet wallet;
-    //private Transaction transaction;
     private Button addWallet;
     private EditText editWallet;
 
@@ -93,14 +90,14 @@ public class WalletFragment extends Fragment {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
-                if(documentSnapshot.toObject(User.class) != null) {
-                    User user = documentSnapshot.toObject(User.class);
-                    if (user.getWallets() != null) {
-                        ArrayList<Wallet> wallets = user.getWallets();
+                User user = documentSnapshot.toObject(User.class);
+                if(user != null && user.getWallets() != null) {
+
+                        wallets = user.getWallets();
                         //Toast.makeText(getContext(), user.getWallets().iterator().next().getTransactions().iterator().next().getName(), Toast.LENGTH_SHORT).show();
                         ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
                         shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
-                    }
+
                 }
 
             }
@@ -120,6 +117,8 @@ public class WalletFragment extends Fragment {
         //getFragmentManager().beginTransaction().detach(this).attach(this).commit();
 
 
+        ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
+        shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
 
         return rootView;
     }
