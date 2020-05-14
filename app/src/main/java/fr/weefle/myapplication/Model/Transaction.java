@@ -1,6 +1,8 @@
 package fr.weefle.myapplication.Model;
 
-public class Transaction {
+import java.io.Serializable;
+
+public class Transaction implements Serializable {
 
     private String name;
     private Double price;
@@ -9,6 +11,8 @@ public class Transaction {
         this.name = name;
         this.price = price;
     }
+
+    public Transaction(){}
 
     public String getName() {
         return name;

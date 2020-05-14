@@ -17,6 +17,8 @@ public class Wallet {
         this.transactions = new ArrayList<>();
     }
 
+    public Wallet(){}
+
 
 
     public void setName(String name) {
@@ -29,6 +31,10 @@ public class Wallet {
 
     public void setTransactions(ArrayList<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        this.transactions.add(transaction);
     }
 
 

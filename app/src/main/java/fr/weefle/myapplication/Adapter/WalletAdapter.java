@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,12 @@ public class WalletAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 //TODO open a new activity
-                context.startActivity(new Intent(context, TransactionActivity.class));
+                Intent intent = new Intent(context, TransactionActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("transactions", currentWallet.getTransactions());
+                //Toast.makeText(context, currentWallet.getTransactions().iterator().next().getName(), Toast.LENGTH_SHORT).show();
+                intent.putExtras(bundle);
+                context.startActivity(intent);
                 //Toast.makeText(context, walletName + "'s current balance: " + walletBalance, Toast.LENGTH_SHORT).show();
             }
         });
@@ -124,11 +130,11 @@ public class WalletAdapter extends BaseAdapter {
 
                 if (!editTextname.getText().toString().isEmpty()) {
                     //db.updateWallet(wallet);
-                    Toast.makeText(context, "✔ Details correctly changed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
                     context.startActivity(new Intent(context, HomeActivity.class));
                     ((Activity)context).finish();
                 } else {
-                    Toast.makeText(context, "❌ Missing details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "❌ Missing details!", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
 

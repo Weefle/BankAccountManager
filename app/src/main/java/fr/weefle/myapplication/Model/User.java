@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 // POJO class
 public class User {
-    private String password;
-    private String email ;
-    private ArrayList<Wallet> wallets;
+    private String email = "";
+    private ArrayList<Wallet> wallets = null;
 
-    public User(String password, String email) {
-        this.password = password;
+    public User(String email) {
         this.email = email;
         this.wallets = new ArrayList<>();
     }
@@ -17,16 +15,14 @@ public class User {
     public User() {
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
+    }
+
+    public void setWallets(ArrayList<Wallet> wallets) {
+        this.wallets = wallets;
     }
 
     public void setEmail(String email) {
@@ -35,10 +31,6 @@ public class User {
 
     public ArrayList<Wallet> getWallets() {
         return wallets;
-    }
-
-    public Wallet getWallet(Wallet wallet){
-        return wallet;
     }
 
     public void addWallet(Wallet wallet) {
