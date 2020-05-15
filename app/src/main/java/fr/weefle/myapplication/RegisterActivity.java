@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                                 finish();
                             }else{
-                                Toast.makeText(RegisterActivity.this, "❌ Couldn't register, you need at least 6 digits", Toast.LENGTH_LONG).show();
+                                Toast.makeText(RegisterActivity.this, "❌ Account already exist or you need at least 6 digits", Toast.LENGTH_LONG).show();
                             }
 
                         }
