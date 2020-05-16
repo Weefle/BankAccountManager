@@ -34,11 +34,11 @@ import fr.weefle.myapplication.Model.Wallet;
 public class WalletFragment extends Fragment {
 
     //TODO the arraylist wil come from the arraylist from user account
-    private ArrayList<Wallet> wallets = new ArrayList<>();
+    public ArrayList<Wallet> wallets = new ArrayList<>();
 
     private Button addWallet;
     private EditText editWallet;
-    private User user;
+    public static User user;
     Boolean check;
 
     @Override
@@ -57,8 +57,10 @@ public class WalletFragment extends Fragment {
                     if(documentSnapshot.toObject(User.class) != null && documentSnapshot.toObject(User.class).getWallets() != null) {
                         user = documentSnapshot.toObject(User.class);
                         wallets = user.getWallets();
-                        ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
-                        shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
+                        if(!wallets.isEmpty()) {
+                            ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
+                            shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
+                        }
 
                     }
                 }
