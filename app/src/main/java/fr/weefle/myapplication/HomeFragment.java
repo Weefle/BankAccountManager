@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
         textViewLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WalletFragment.user = null;
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
@@ -109,6 +110,7 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
+                                WalletFragment.user = null;
                                 FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(getActivity(), "✔ Password correctly changed!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
@@ -152,6 +154,7 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
+                                WalletFragment.user = null;
                                 FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(getActivity(), "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
