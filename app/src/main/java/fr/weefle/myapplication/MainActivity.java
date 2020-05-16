@@ -59,23 +59,29 @@ public class MainActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    String email = editTextEmail.getText().toString().trim();
+                String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                if (email.isEmpty() || password.isEmpty()) {
 
-                        if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "✔ Successfully logged in!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
-                            finish();
-                        }else{
-                            Toast.makeText(MainActivity.this, "❌ Wrong password!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "❌ You missed some fields!", Toast.LENGTH_SHORT).show();
+                } else{
+
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if (task.isSuccessful()) {
+                                Toast.makeText(MainActivity.this, "✔ Successfully logged in!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, "❌ Wrong password or email!", Toast.LENGTH_LONG).show();
+                            }
+
                         }
-
-                    }
-                });
+                    });
+            }
 
             }
         });

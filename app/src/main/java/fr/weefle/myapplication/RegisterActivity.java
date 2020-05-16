@@ -52,13 +52,18 @@ public class RegisterActivity extends AppCompatActivity {
                 final String password = editTextPassword.getText().toString().trim();
                 String passwordConf = editTextCnfPassword.getText().toString().trim();
 
-                if (password.equals(passwordConf)) {
+                if (email.isEmpty() || password.isEmpty() || userName.isEmpty() || password.isEmpty() || passwordConf.isEmpty()) {
 
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
+                    Toast.makeText(RegisterActivity.this, "❌ You missed some fields!", Toast.LENGTH_SHORT).show();
+                } else {
 
-                            if(task.isSuccessful()){
+                    if (password.equals(passwordConf)) {
+
+                        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                if (task.isSuccessful()) {
 
                                /* userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
@@ -66,26 +71,27 @@ public class RegisterActivity extends AppCompatActivity {
                                 user.put("userName", userName);
                                 user.put("userPassword", password);
                                 ref.set(user);*/
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                        .setDisplayName(userName)
-                                        .build();
+                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(userName)
+                                            .build();
 
-                                user.updateProfile(profileUpdates);
-                                Toast.makeText(RegisterActivity.this, "✔ Successfully registered!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                                finish();
-                            }else{
-                                Toast.makeText(RegisterActivity.this, "❌ Account already exist or you need at least 6 digits", Toast.LENGTH_LONG).show();
+                                    user.updateProfile(profileUpdates);
+                                    Toast.makeText(RegisterActivity.this, "✔ Successfully registered!", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, "❌ Account already exist or you need at least 6 digits", Toast.LENGTH_LONG).show();
+                                }
+
                             }
+                        });
 
-                        }
-                    });
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "❌ Password is not matching", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(RegisterActivity.this, "❌ Password is not matching", Toast.LENGTH_SHORT).show();
-
+                    }
                 }
             }
         });
