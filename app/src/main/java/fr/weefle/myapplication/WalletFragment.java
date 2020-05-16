@@ -34,7 +34,7 @@ import fr.weefle.myapplication.Model.Wallet;
 public class WalletFragment extends Fragment {
 
     //TODO the arraylist wil come from the arraylist from user account
-    public ArrayList<Wallet> wallets = new ArrayList<>();
+    public ArrayList<Wallet> wallets;
 
     private Button addWallet;
     private EditText editWallet;
@@ -57,10 +57,10 @@ public class WalletFragment extends Fragment {
                     if(documentSnapshot.toObject(User.class) != null && documentSnapshot.toObject(User.class).getWallets() != null) {
                         user = documentSnapshot.toObject(User.class);
                         wallets = user.getWallets();
-                        if(!wallets.isEmpty()) {
+                        //if(!wallets.isEmpty()) {
                             ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
                             shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
-                        }
+                       // }
 
                     }
                 }
@@ -68,8 +68,12 @@ public class WalletFragment extends Fragment {
             }
         });
 
-        ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
-        shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
+        if(wallets!=null) {
+            ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
+            shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
+        }else{
+            wallets = new ArrayList<>();
+        }
 
         addWallet = rootView.findViewById(R.id.add_wallet);
         editWallet = rootView.findViewById(R.id.edit_wallet);
@@ -77,8 +81,6 @@ public class WalletFragment extends Fragment {
         addWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 check = false;
                 String walletName = editWallet.getText().toString();
                 if(user == null){
@@ -105,13 +107,10 @@ public class WalletFragment extends Fragment {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getContext(), "✔ Successfully added!", Toast.LENGTH_SHORT).show();
                             }
-
                         }
                     });
                 }else{
-
                     Toast.makeText(getActivity(), "Already exists!", Toast.LENGTH_SHORT).show();
-
                 }
 
             }

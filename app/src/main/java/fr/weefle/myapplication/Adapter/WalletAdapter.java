@@ -83,16 +83,15 @@ public class WalletAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, TransactionActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("transactions", currentWallet.getTransactions());
-                //Toast.makeText(context, currentWallet.getTransactions().iterator().next().getName(), Toast.LENGTH_SHORT).show();
                 intent.putExtras(bundle);
                 context.startActivity(intent);
-                //Toast.makeText(context, walletName + "'s current balance: " + walletBalance, Toast.LENGTH_SHORT).show();
+
             }
         });
 
         convertView.setOnLongClickListener(new View.OnLongClickListener() {
                                                public boolean onLongClick(View v) {
-                                                  // Toast.makeText(context, "Why did you do that? That REALLY hurts!!!", Toast.LENGTH_LONG).show();
+
                                                    editWalletDetails(walletName, walletBalance, position);
                                                    return true;
                                                }
@@ -112,8 +111,6 @@ public class WalletAdapter extends BaseAdapter {
         dialog = alertDialogBuilder.create();
         dialog.show();
 
-        //final Wallet wallet = new Wallet(name, balance);
-        //Toast.makeText(context, wallet.getName(), Toast.LENGTH_SHORT).show();
         editTextname.setText(name);
 
 
@@ -124,18 +121,6 @@ public class WalletAdapter extends BaseAdapter {
         deleteButtonWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(context, "coucou", Toast.LENGTH_SHORT).show();
-
-                //TODO delete wallet on database
-               /* check = false;
-                for(Wallet wallet : WalletFragment.user.getWallets()){
-                    if(wallet.getName().equals(name)){
-
-                        check = true;
-                    }
-                }
-
-                if(check) {*/
                     WalletFragment.user.getWallets().remove(position);
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
@@ -145,8 +130,6 @@ public class WalletAdapter extends BaseAdapter {
 
                             if (task.isSuccessful()) {
                                 Toast.makeText(context, "✔ Successfully deleted!", Toast.LENGTH_SHORT).show();
-                                /*context.startActivity(new Intent(context, HomeActivity.class));
-                                ((Activity)context).finish();*/
                             }else{
                                 Toast.makeText(context, "❌ Error with database!", Toast.LENGTH_SHORT).show();
                             }
@@ -154,7 +137,6 @@ public class WalletAdapter extends BaseAdapter {
                         }
                     });
 
-             //   }
                 dialog.dismiss();
 
            }
@@ -163,7 +145,6 @@ public class WalletAdapter extends BaseAdapter {
         saveButtonWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // wallet.setName(editTextname.getText().toString());
 
                 if (!editTextname.getText().toString().isEmpty()) {
                     //db.updateWallet(wallet);
@@ -176,8 +157,6 @@ public class WalletAdapter extends BaseAdapter {
 
                             if (task.isSuccessful()) {
                                 Toast.makeText(context, "✔ Successfully deleted!", Toast.LENGTH_SHORT).show();
-                                /*context.startActivity(new Intent(context, HomeActivity.class));
-                                ((Activity)context).finish();*/
                             }
 
                         }
