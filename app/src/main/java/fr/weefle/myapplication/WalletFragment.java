@@ -120,6 +120,8 @@ public class WalletFragment extends Fragment {
                         Toast.makeText(getActivity(), "Already exists!", Toast.LENGTH_SHORT).show();
                     }
 
+                }else{
+                    Toast.makeText(getContext(), "❌ They are empty fields!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
