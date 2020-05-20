@@ -48,7 +48,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/button"
             android:foreground="?android:attr/selectableItemBackground"
-            android:text="Add to Balance"
+            android:text="Add Transaction"
             android:textAllCaps="false"
             android:textColor="#FE5295"
             android:textSize="17sp" />
