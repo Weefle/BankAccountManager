@@ -131,8 +131,8 @@ public class WalletAdapter extends BaseAdapter {
                             if (task.isSuccessful()) {
                                 Toast.makeText(context, "✔ Successfully deleted!", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(context, "❌ Error with database!", Toast.LENGTH_SHORT).show();
-                            }
+                            Toast.makeText(context, "❌ Error with database!", Toast.LENGTH_SHORT).show();
+                        }
 
                         }
                     });
@@ -156,12 +156,14 @@ public class WalletAdapter extends BaseAdapter {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()) {
-                                Toast.makeText(context, "✔ Successfully deleted!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "✔ Successfully changed!", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(context, "❌ Error with database!", Toast.LENGTH_SHORT).show();
                             }
 
                         }
                     });
-                    Toast.makeText(context, "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(context, "❌ Missing details!", Toast.LENGTH_SHORT).show();
                 }
