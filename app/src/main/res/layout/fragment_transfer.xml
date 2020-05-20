@@ -22,12 +22,22 @@
         </Spinner>
 
         <EditText
-            android:id="@+id/edit_balance"
+            android:id="@+id/edit_transaction_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_top"
-            android:hint="Wallet Balance"
-            android:inputType="number"
+            android:hint="Transaction Name"
+            android:inputType="textPersonName"
+            android:layout_marginTop="10dp"
+            android:padding="15dp" />
+
+        <EditText
+            android:id="@+id/edit_transaction_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_top"
+            android:hint="Transaction Price"
+            android:inputType="numberDecimal|numberSigned"
             android:layout_marginTop="10dp"
             android:padding="15dp" />
 

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import fr.weefle.myapplication.Adapter.TransactionAdapter;
 import fr.weefle.myapplication.Model.Transaction;
@@ -23,6 +24,7 @@ public class TransactionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         ArrayList<Transaction> transactions = (ArrayList<Transaction>) bundle.getSerializable("transactions");
+        Collections.reverse(transactions);
 
 
 

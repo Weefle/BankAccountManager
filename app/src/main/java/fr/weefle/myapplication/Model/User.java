@@ -15,6 +15,19 @@ public class User {
     public User() {
     }
 
+    public Wallet getWallet(String name){
+        int i = 0;
+
+        for(Wallet wallet : this.wallets){
+
+            if(wallet.getName().equals(name)){
+                break;
+            }
+            i++;
+        }
+        return this.wallets.get(i);
+    }
+
 
 
     public String getEmail() {

@@ -28,6 +28,16 @@
             android:layout_marginTop="10dp"
             android:padding="15dp" />
 
+        <EditText
+            android:id="@+id/edit_wallet_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_top"
+            android:hint="Wallet Balance"
+            android:inputType="numberSigned|numberDecimal"
+            android:layout_marginTop="10dp"
+            android:padding="15dp" />
+
         <Button
             android:id="@+id/add_wallet"
             android:layout_width="match_parent"

@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
                     .beginTransaction()
                     .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
                     .replace(R.id.fragment_container, fragment)
-                    .commit();
+                    .commitNow();
 
             return true;
     }
@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_wallet);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commitNow();
 
 
     }

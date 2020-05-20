@@ -22,8 +22,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import fr.weefle.myapplication.Adapter.WalletAdapter;
 import fr.weefle.myapplication.Model.Transaction;
@@ -37,9 +39,10 @@ public class WalletFragment extends Fragment {
     public ArrayList<Wallet> wallets;
 
     private Button addWallet;
-    private EditText editWallet;
+    private EditText editWallet, editWalletBalance;
     public static User user;
-    Boolean check;
+    boolean check;
+    ListenerRegistration registration;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +51,7 @@ public class WalletFragment extends Fragment {
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-        ref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        registration = ref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
 
@@ -77,47 +80,60 @@ public class WalletFragment extends Fragment {
 
         addWallet = rootView.findViewById(R.id.add_wallet);
         editWallet = rootView.findViewById(R.id.edit_wallet);
+        editWalletBalance = rootView.findViewById(R.id.edit_wallet_balance);
 
         addWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                check = false;
-                String walletName = editWallet.getText().toString();
-                if(user == null){
-                    user = new User(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                }
-                for(Wallet wallet : wallets){
-                    if(wallet.getName().equals(walletName.trim())){
 
-                        check = true;
+                if (!editWallet.getText().toString().isEmpty() && !editWalletBalance.getText().toString().isEmpty()) {
+
+                    check = false;
+                    String walletName = editWallet.getText().toString();
+                    if (user == null) {
+                        user = new User(FirebaseAuth.getInstance().getCurrentUser().getEmail());
                     }
-                }
+                    for (Wallet wallet : wallets) {
+                        if (wallet.getName().equals(walletName.trim())) {
 
-                if(!check) {
-                    Transaction transaction = new Transaction("test", 0.0);
-                    Wallet wallet = new Wallet(walletName, 0.0);
-                    wallet.addTransaction(transaction);
-                    user.addWallet(wallet);
-                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-                    ref.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "✔ Successfully added!", Toast.LENGTH_SHORT).show();
-                            }
+                            check = true;
                         }
-                    });
-                }else{
-                    Toast.makeText(getActivity(), "Already exists!", Toast.LENGTH_SHORT).show();
-                }
+                    }
 
+                    if (!check) {
+                        //Transaction transaction = new Transaction("test", 0.0);
+                        Wallet wallet = new Wallet(walletName, Double.parseDouble(editWalletBalance.getText().toString()));
+                        //wallet.addTransaction(transaction);
+                        user.addWallet(wallet);
+                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
+                        ref.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "✔ Successfully added!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getActivity(), "Already exists!", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
             }
         });
 
 
 
         return rootView;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        registration.remove();
+
     }
 }

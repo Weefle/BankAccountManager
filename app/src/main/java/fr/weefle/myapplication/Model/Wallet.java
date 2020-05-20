@@ -37,6 +37,19 @@ public class Wallet {
         this.transactions.add(transaction);
     }
 
+    public Transaction getTransaction(String name){
+        int i = 0;
+
+        for(Transaction transaction : this.transactions){
+
+            if(transaction.getName().equals(name)){
+                break;
+            }
+            i++;
+        }
+        return this.transactions.get(i);
+    }
+
 
     public String getName() {
         return name;
