@@ -6,13 +6,12 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
 public class HomeActivity extends AppCompatActivity {
-
-    private Fragment fragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -22,25 +21,17 @@ public class HomeActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fragment = new HomeFragment();
-                    break;
+                    showFragment(new HomeFragment());
+                    return true;
                 case R.id.navigation_wallet:
-                    fragment = new WalletFragment();
-                    break;
+                    showFragment(new WalletFragment());
+                    return true;
                 case R.id.navigation_transfer:
-
-                    fragment = new TransferFragment();
-                    break;
+                    showFragment(new TransferFragment());
+                    return true;
 
         }
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
-                    .replace(R.id.fragment_container, fragment)
-                    .commitNow();
-
-            return true;
+            return false;
     }
     };
 
@@ -50,9 +41,17 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_wallet);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WalletFragment()).commitNow();
+        showFragment(new WalletFragment());
 
 
+    }
+
+    private void showFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
+                .replace(R.id.fragment_container, fragment)
+                .commitNow();
     }
 
 }
