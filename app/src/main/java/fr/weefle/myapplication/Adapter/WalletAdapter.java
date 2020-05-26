@@ -77,12 +77,17 @@ public class WalletAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 //TODO open a new activity
-                Intent intent = new Intent(context, TransactionActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("transactions", currentWallet.getTransactions());
-                intent.putExtras(bundle);
-                context.startActivity(intent);
+                if (!currentWallet.getTransactions().isEmpty()) {
+                    Intent intent = new Intent(context, TransactionActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("transactions", currentWallet.getTransactions());
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
 
+                }
+            else{
+                    Toast.makeText(context, "❌ There isn't any transaction yet!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

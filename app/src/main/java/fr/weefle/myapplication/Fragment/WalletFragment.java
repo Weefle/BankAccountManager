@@ -92,7 +92,7 @@ public class WalletFragment extends Fragment {
                     check = false;
                     String walletName = editWallet.getText().toString();
                     if (user == null) {
-                        user = new User(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                        user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     }
                     for (Wallet wallet : wallets) {
                         if (wallet.getName().equals(walletName.trim())) {

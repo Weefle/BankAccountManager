@@ -1,14 +1,15 @@
 package fr.weefle.myapplication.Model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 // POJO class
 public class User {
-    private String email = "";
-    private ArrayList<Wallet> wallets = null;
+    private String uuid;
+    private ArrayList<Wallet> wallets;
 
-    public User(String email) {
-        this.email = email;
+    public User(String uuid) {
+        this.uuid = uuid;
         this.wallets = new ArrayList<>();
     }
 
@@ -30,16 +31,16 @@ public class User {
 
 
 
-    public String getEmail() {
-        return email;
+    public String getUUID() {
+        return uuid;
     }
 
     public void setWallets(ArrayList<Wallet> wallets) {
         this.wallets = wallets;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUUID(String uuid) {
+        this.uuid= uuid;
     }
 
     public ArrayList<Wallet> getWallets() {

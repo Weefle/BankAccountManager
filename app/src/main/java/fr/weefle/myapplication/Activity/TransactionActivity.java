@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -55,11 +56,17 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplication(), TrendActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("transactions", transactions);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                if(transactions.size()>1) {
+
+                    Intent intent = new Intent(getApplication(), TrendActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("transactions", transactions);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                }else{
+                    Toast.makeText(getApplication(), "❌ You need at least 2 transactions!", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
