@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_top"
-            android:hint="Transaction Price"
+            android:hint="Transaction Amount"
             android:inputType="numberDecimal|numberSigned"
             android:layout_marginTop="10dp"
             android:padding="15dp" />

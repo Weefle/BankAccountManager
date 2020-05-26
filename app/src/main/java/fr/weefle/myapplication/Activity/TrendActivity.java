@@ -19,6 +19,7 @@ import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import fr.weefle.myapplication.Model.Transaction;
@@ -33,6 +34,7 @@ public class TrendActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         final ArrayList<Transaction> transactions = (ArrayList<Transaction>) bundle.getSerializable("transactions");
+        Collections.reverse(transactions);
         AnyChartView anyChartView = findViewById(R.id.any_chart_view);
         Cartesian cartesian = AnyChart.line();
         cartesian.animation(true);

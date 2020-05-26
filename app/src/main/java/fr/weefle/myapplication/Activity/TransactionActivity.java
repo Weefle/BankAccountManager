@@ -55,8 +55,6 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Collections.reverse(transactions);
-
                 Intent intent = new Intent(getApplication(), TrendActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("transactions", transactions);
