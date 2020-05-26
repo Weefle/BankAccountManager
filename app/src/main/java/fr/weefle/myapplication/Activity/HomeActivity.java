@@ -1,4 +1,4 @@
-package fr.weefle.myapplication;
+package fr.weefle.myapplication.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -6,10 +6,13 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import fr.weefle.myapplication.Fragment.HomeFragment;
+import fr.weefle.myapplication.Fragment.TransferFragment;
+import fr.weefle.myapplication.Fragment.WalletFragment;
+import fr.weefle.myapplication.R;
 
 public class HomeActivity extends AppCompatActivity {
 

@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import fr.weefle.myapplication.Activity.HomeActivity;
+import fr.weefle.myapplication.Activity.RegisterActivity;
+
 public class MainActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
     Button buttonLogin;

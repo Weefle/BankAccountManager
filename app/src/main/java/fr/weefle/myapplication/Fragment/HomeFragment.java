@@ -1,4 +1,4 @@
-package fr.weefle.myapplication;
+package fr.weefle.myapplication.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -13,17 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import fr.weefle.myapplication.MainActivity;
+import fr.weefle.myapplication.R;
 
 public class HomeFragment extends Fragment {
 
@@ -102,8 +99,8 @@ public class HomeFragment extends Fragment {
         saveButtonPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("check", editTextPasswordPopup.getText().toString());
-                Log.d("check", editTextConfPasswordPopup.getText().toString());
+
+                if (!editTextPasswordPopup.getText().toString().isEmpty() && !editTextConfPasswordPopup.getText().toString().isEmpty()) {
 
                 if (editTextConfPasswordPopup.getText().toString().equals(editTextPasswordPopup.getText().toString()) ) {
                     FirebaseAuth.getInstance().getCurrentUser().updatePassword(editTextConfPasswordPopup.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -123,6 +120,10 @@ public class HomeFragment extends Fragment {
 
                 } else{
                     Toast.makeText(getActivity(), "❌ Password is not the same!", Toast.LENGTH_SHORT).show();
+                }
+
+                } else {
+                    Toast.makeText(getActivity(), "❌ Missing fields!", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
 
@@ -166,7 +167,7 @@ public class HomeFragment extends Fragment {
                     });
 
                 } else {
-                    Toast.makeText(getActivity(), "❌ Missing details!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "❌ Missing fields!", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
 

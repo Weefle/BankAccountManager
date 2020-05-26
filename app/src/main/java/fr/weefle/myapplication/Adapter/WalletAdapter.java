@@ -1,6 +1,5 @@
 package fr.weefle.myapplication.Adapter;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -25,12 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import fr.weefle.myapplication.HomeActivity;
-import fr.weefle.myapplication.MainActivity;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
-import fr.weefle.myapplication.TransactionActivity;
-import fr.weefle.myapplication.WalletFragment;
+import fr.weefle.myapplication.Activity.TransactionActivity;
+import fr.weefle.myapplication.Fragment.WalletFragment;
 
 public class WalletAdapter extends BaseAdapter {
 

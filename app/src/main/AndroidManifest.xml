@@ -9,13 +9,19 @@
         android:roundIcon="@drawable/business"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HomeActivity"
+        <activity android:name=".Activity.TrendActivity"
             android:screenOrientation="locked" />
-        <activity android:name=".TransactionActivity"
+        <activity
+            android:name=".Activity.HomeActivity"
             android:screenOrientation="locked" />
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".Activity.TransactionActivity"
             android:screenOrientation="locked" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".Activity.RegisterActivity"
+            android:screenOrientation="locked" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

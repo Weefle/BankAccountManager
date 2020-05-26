@@ -1,4 +1,4 @@
-package fr.weefle.myapplication;
+package fr.weefle.myapplication.Fragment;
 
 import android.os.Bundle;
 
@@ -31,6 +31,7 @@ import fr.weefle.myapplication.Adapter.WalletAdapter;
 import fr.weefle.myapplication.Model.Transaction;
 import fr.weefle.myapplication.Model.User;
 import fr.weefle.myapplication.Model.Wallet;
+import fr.weefle.myapplication.R;
 
 
 public class WalletFragment extends Fragment {

@@ -1,4 +1,4 @@
-package fr.weefle.myapplication;
+package fr.weefle.myapplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import fr.weefle.myapplication.MainActivity;
+import fr.weefle.myapplication.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

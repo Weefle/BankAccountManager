@@ -1,4 +1,4 @@
-package fr.weefle.myapplication;
+package fr.weefle.myapplication.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,15 +19,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import fr.weefle.myapplication.Model.Transaction;
-import fr.weefle.myapplication.Model.User;
 import fr.weefle.myapplication.Model.Wallet;
+import fr.weefle.myapplication.R;
 
 public class TransferFragment extends Fragment {
 
