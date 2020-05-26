@@ -42,8 +42,8 @@ public class TrendActivity extends AppCompatActivity {
                 .yLabel(true)
                 .yStroke((Stroke) null, null, null, (String) null, (String) null);
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.title("Wallet Trend");
-        cartesian.yAxis(0).title("Transaction Price");
+        //cartesian.title("Wallet Trend");
+        cartesian.yAxis(0);//.title("Transaction Price, $");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
         List<DataEntry> seriesData = new ArrayList<>();
         for(Transaction transaction : transactions){
@@ -54,7 +54,7 @@ public class TrendActivity extends AppCompatActivity {
         Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
 
         Line series1 = cartesian.line(series1Mapping);
-        series1.name("Price");
+        series1.name("Amount($)");
         series1.hovered().markers().enabled(true);
         series1.hovered().markers()
                 .type(MarkerType.CIRCLE)

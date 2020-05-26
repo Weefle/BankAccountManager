@@ -52,11 +52,11 @@ public class TransactionAdapter extends BaseAdapter {
 
         final Transaction currentTrans = (Transaction) getItem(position);
         final String transName = currentTrans.getName();
-        final Double transPrice = currentTrans.getPrice();
+        final Double transPrice = (double) Math.round(currentTrans.getPrice() * 100) / 100;
         final TextView itemNameView = convertView.findViewById(R.id.trans_name);
         itemNameView.setText(transName);
         final TextView itemPriceView = convertView.findViewById(R.id.trans_price);
-        itemPriceView.setText("Price: " + transPrice.toString());
+        itemPriceView.setText("Amount: " + transPrice.toString() + "$");
 
         return convertView;
     }

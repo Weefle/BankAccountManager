@@ -68,11 +68,11 @@ public class WalletAdapter extends BaseAdapter {
 
         final Wallet currentWallet = (Wallet) getItem(position);
         final String walletName = currentWallet.getName();
-        final Double walletBalance = currentWallet.getBalance();
+        final Double walletBalance =  (double) Math.round(currentWallet.getBalance() * 100) / 100;
         final TextView itemNameView = convertView.findViewById(R.id.wallet_name);
         itemNameView.setText(walletName);
         final TextView itemPriceView = convertView.findViewById(R.id.wallet_balance);
-        itemPriceView.setText("Balance: " + walletBalance.toString());
+        itemPriceView.setText("Balance: " + walletBalance.toString() + "$");
         convertView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
