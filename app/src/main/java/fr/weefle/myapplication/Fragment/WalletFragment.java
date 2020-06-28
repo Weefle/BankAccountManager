@@ -25,10 +25,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import fr.weefle.myapplication.Adapter.WalletAdapter;
-import fr.weefle.myapplication.Model.Transaction;
+import fr.weefle.myapplication.Model.CurrentUser;
 import fr.weefle.myapplication.Model.User;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
@@ -41,7 +40,6 @@ public class WalletFragment extends Fragment {
 
     private Button addWallet;
     private EditText editWallet, editWalletBalance;
-    public static User user;
     boolean check;
     ListenerRegistration registration;
 
@@ -59,8 +57,8 @@ public class WalletFragment extends Fragment {
 
                 if(documentSnapshot != null){
                     if(documentSnapshot.toObject(User.class) != null && documentSnapshot.toObject(User.class).getWallets() != null) {
-                        user = documentSnapshot.toObject(User.class);
-                        wallets = user.getWallets();
+                        CurrentUser.setCurrentUser(documentSnapshot.toObject(User.class));
+                        wallets = CurrentUser.getCurrentUser().getWallets();
                         //if(!wallets.isEmpty()) {
                             ListView shopListView = rootView.findViewById(R.id.wallet_list_view);
                             shopListView.setAdapter(new WalletAdapter(getActivity(), wallets));
@@ -91,8 +89,8 @@ public class WalletFragment extends Fragment {
 
                     check = false;
                     String walletName = editWallet.getText().toString();
-                    if (user == null) {
-                        user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    if (CurrentUser.getCurrentUser() == null) {
+                        CurrentUser.setCurrentUser(new User(FirebaseAuth.getInstance().getCurrentUser().getUid()));
                     }
                     for (Wallet wallet : wallets) {
                         if (wallet.getName().equals(walletName.trim())) {
@@ -105,10 +103,10 @@ public class WalletFragment extends Fragment {
                         //Transaction transaction = new Transaction("test", 0.0);
                         Wallet wallet = new Wallet(walletName, Double.parseDouble(editWalletBalance.getText().toString()));
                         //wallet.addTransaction(transaction);
-                        user.addWallet(wallet);
+                        CurrentUser.getCurrentUser().addWallet(wallet);
                         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-                        ref.set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        ref.set(CurrentUser.getCurrentUser()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 

@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.weefle.myapplication.Model.CurrentUser;
 import fr.weefle.myapplication.Model.Transaction;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
@@ -52,8 +53,8 @@ public class TransferFragment extends Fragment {
 
         List<String> list = new ArrayList<String>();
 
-        if (WalletFragment.user.getWallets() != null){
-            for (Wallet wallet : WalletFragment.user.getWallets()) {
+        if (CurrentUser.getCurrentUser().getWallets() != null){
+            for (Wallet wallet : CurrentUser.getCurrentUser().getWallets()) {
 
                 list.add(wallet.getName());
                 wallets.put(wallet.getName(), wallet);
@@ -89,12 +90,12 @@ public class TransferFragment extends Fragment {
                         for (Wallet newWallet : wallets.values()){
                             newWallets.add(newWallet);
                         }
-                        WalletFragment.user.setWallets(newWallets);
+                        CurrentUser.getCurrentUser().setWallets(newWallets);
                         double price =  Double.parseDouble(transaction_price.getText().toString());
-                        WalletFragment.user.getWallet(spinner.getSelectedItem().toString()).setBalance(WalletFragment.user.getWallet(spinner.getSelectedItem().toString()).getBalance() + price);
+                        CurrentUser.getCurrentUser().getWallet(spinner.getSelectedItem().toString()).setBalance(CurrentUser.getCurrentUser().getWallet(spinner.getSelectedItem().toString()).getBalance() + price);
                         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-                        ref.set(WalletFragment.user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        ref.set(CurrentUser.getCurrentUser()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 

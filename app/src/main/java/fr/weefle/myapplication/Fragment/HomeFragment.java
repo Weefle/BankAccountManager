@@ -3,7 +3,6 @@ package fr.weefle.myapplication.Fragment;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import fr.weefle.myapplication.Model.CurrentUser;
 import fr.weefle.myapplication.MainActivity;
 import fr.weefle.myapplication.R;
 
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         textViewLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WalletFragment.user = null;
+                CurrentUser.setCurrentUser(null);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
-                                WalletFragment.user = null;
+                                CurrentUser.setCurrentUser(null);
                                 FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(getActivity(), "✔ Password correctly changed!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
@@ -155,7 +155,7 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-                                WalletFragment.user = null;
+                                CurrentUser.setCurrentUser(null);
                                 FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(getActivity(), "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));

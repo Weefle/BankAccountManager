@@ -24,10 +24,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+import fr.weefle.myapplication.Model.CurrentUser;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
 import fr.weefle.myapplication.Activity.TransactionActivity;
-import fr.weefle.myapplication.Fragment.WalletFragment;
 
 public class WalletAdapter extends BaseAdapter {
 
@@ -123,10 +123,10 @@ public class WalletAdapter extends BaseAdapter {
         deleteButtonWallet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    WalletFragment.user.getWallets().remove(position);
+                CurrentUser.getCurrentUser().getWallets().remove(position);
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-                    ref.set(WalletFragment.user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    ref.set(CurrentUser.getCurrentUser()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
@@ -150,10 +150,10 @@ public class WalletAdapter extends BaseAdapter {
 
                 if (!editTextname.getText().toString().isEmpty()) {
                     //db.updateWallet(wallet);
-                    WalletFragment.user.getWallets().get(position).setName(editTextname.getText().toString());
+                    CurrentUser.getCurrentUser().getWallets().get(position).setName(editTextname.getText().toString());
                     String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-                    ref.set(WalletFragment.user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    ref.set(CurrentUser.getCurrentUser()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
 
