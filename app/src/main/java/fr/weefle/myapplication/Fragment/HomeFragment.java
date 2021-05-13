@@ -2,6 +2,7 @@ package fr.weefle.myapplication.Fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
-import fr.weefle.myapplication.Model.CurrentUser;
 import fr.weefle.myapplication.MainActivity;
+import fr.weefle.myapplication.Model.CurrentUser;
 import fr.weefle.myapplication.R;
 
 public class HomeFragment extends Fragment {
@@ -42,16 +46,6 @@ public class HomeFragment extends Fragment {
         textViewEmail = rootView.findViewById(R.id.textViewEmail);
         textViewLogout = rootView.findViewById(R.id.textViewLogout);
 
-       /* userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference ref = FirebaseFirestore.getInstance().collection("Users").document(userID);
-        ref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-
-                textViewName.setText(documentSnapshot.getString("userName"));
-
-            }
-        });*/
         textViewName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         textViewEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
 
@@ -107,11 +101,11 @@ public class HomeFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()) {
-                                CurrentUser.setCurrentUser(null);
-                                FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(getActivity(), "✔ Password correctly changed!", Toast.LENGTH_SHORT).show();
+                                /*CurrentUser.setCurrentUser(null);
+                                FirebaseAuth.getInstance().signOut();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
-                                getActivity().finish();
+                                getActivity().finish();*/
                             }else{
                                 Toast.makeText(getActivity(), "❌ Couldn't change password, you need at least 6 digits!", Toast.LENGTH_SHORT).show();
                             }
@@ -137,12 +131,14 @@ public class HomeFragment extends Fragment {
         inflater = LayoutInflater.from(getActivity());
         final View view = inflater.inflate(R.layout.popup, null);
         final EditText editTextEmail = view.findViewById(R.id.editTextEmail);
+        final EditText editTextName = view.findViewById(R.id.editTextName);
 
         alertDialogBuilder.setView(view);
         dialog = alertDialogBuilder.create();
         dialog.show();
 
         editTextEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        editTextName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
 
         Button saveButton = view.findViewById(R.id.saveButton);
 
@@ -150,21 +146,46 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (!editTextEmail.getText().toString().isEmpty()) {
-                    FirebaseAuth.getInstance().getCurrentUser().updateEmail(editTextEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
-                                CurrentUser.setCurrentUser(null);
+                if (!editTextEmail.getText().toString().isEmpty() && !editTextName.getText().toString().isEmpty()) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(editTextName.getText().toString())
+                            .build();
+
+                    user.updateProfile(profileUpdates)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getActivity(), "✔ Name correctly changed!", Toast.LENGTH_SHORT).show();
+                                        FirebaseAuth.getInstance().getCurrentUser().updateEmail(editTextEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    Toast.makeText(getActivity(), "✔ Email correctly changed!", Toast.LENGTH_SHORT).show();
+                                                    getFragmentManager()
+                                                            .beginTransaction()
+                                                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)
+                                                            .replace(R.id.fragment_container, new HomeFragment())
+                                                            .commitNow();
+
+                                /*CurrentUser.setCurrentUser(null);
                                 FirebaseAuth.getInstance().signOut();
-                                Toast.makeText(getActivity(), "✔ Details correctly changed!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
-                                getActivity().finish();
-                            }else{
-                                Toast.makeText(getActivity(), "❌ Couldn't change details!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                                getActivity().finish();*/
+                                                }else{
+                                                    Toast.makeText(getActivity(), "❌ Couldn't change email!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                                    }else{
+                                        Toast.makeText(getActivity(), "❌ Couldn't change name!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+
 
                 } else {
                     Toast.makeText(getActivity(), "❌ Missing fields!", Toast.LENGTH_SHORT).show();

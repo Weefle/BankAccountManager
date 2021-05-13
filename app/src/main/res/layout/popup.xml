@@ -26,15 +26,28 @@
                 android:textStyle="italic" />
 
             <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:layout_below="@id/tile"
+                android:layout_marginTop="15dp"
+                android:hint="Name"
+
+                />
+
+            <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:layout_below="@id/tile"
+                android:layout_below="@id/editTextName"
                 android:layout_marginTop="15dp"
                 android:hint="Email"
 
                 />
+
+
 
 
             <Button
