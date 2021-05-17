@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import fr.weefle.myapplication.Fragment.HomeFragment;
+import fr.weefle.myapplication.Fragment.MapsFragment;
 import fr.weefle.myapplication.Fragment.TransferFragment;
 import fr.weefle.myapplication.Fragment.WalletFragment;
 import fr.weefle.myapplication.R;
@@ -31,6 +32,9 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_transfer:
                     showFragment(new TransferFragment());
+                    return true;
+                case R.id.navigation_map:
+                    showFragment(new MapsFragment());
                     return true;
 
         }

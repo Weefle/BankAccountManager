@@ -17,6 +17,11 @@
         android:icon="@drawable/transfer"
         android:title="@string/title_transfer" />
 
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="@string/title_map" />
+
 
 
 </menu>
