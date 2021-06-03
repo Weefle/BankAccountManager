@@ -1,46 +1,36 @@
 {
   "project_info": {
-    "project_number": "238139222365",
-    "firebase_url": "https://waze-9833d.firebaseio.com",
-    "project_id": "waze-9833d",
-    "storage_bucket": "waze-9833d.appspot.com"
+    "project_number": "438269553800",
+    "project_id": "wizle-4dba3",
+    "storage_bucket": "wizle-4dba3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:238139222365:android:45e7180e76e9bd3a8b60b4",
-        "android_client_info": {
-          "package_name": "fr.weefle.bankaccount"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAS3cslKec0SEMgozfCEfcPg9SplVL1On8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:238139222365:android:de16e969adb9c33d8b60b4",
+        "mobilesdk_app_id": "1:438269553800:android:ebff3c15c58172c6e4433d",
         "android_client_info": {
           "package_name": "fr.weefle.myapplication"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "438269553800-f5bvucii0o34559uh417m8ul2sm8guev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAS3cslKec0SEMgozfCEfcPg9SplVL1On8"
+          "current_key": "AIzaSyC_uumRQLptbDYgeM1LDr5zz0zFvyPmnu0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438269553800-f5bvucii0o34559uh417m8ul2sm8guev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
