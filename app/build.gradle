@@ -25,6 +25,7 @@ android {
 }
 
 dependencies {
+    implementation group: 'org.influxdb', name: 'influxdb-java', version: "2.21"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
