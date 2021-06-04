@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import fr.weefle.myapplication.Activity.HomeActivity;
 import fr.weefle.myapplication.Activity.RegisterActivity;
+import fr.weefle.myapplication.Activity.TrendActivity;
 
 public class MainActivity extends AppCompatActivity {
     EditText editTextEmail, editTextPassword;
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                //startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                startActivity(new Intent(MainActivity.this, TrendActivity.class));
                 finish();
             }
         });
