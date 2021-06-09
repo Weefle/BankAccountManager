@@ -3,24 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/social"
-        android:title="@string/title_home" />
-
-    <item
-        android:id="@+id/navigation_wallet"
-        android:icon="@drawable/money"
-        android:title="@string/title_wallet" />
-
-    <item
-        android:id="@+id/navigation_transfer"
-        android:icon="@drawable/transfer"
-        android:title="@string/title_transfer" />
-
-    <item
         android:id="@+id/navigation_map"
         android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/title_map" />
+
+    <item
+        android:id="@+id/navigation_temp"
+        android:icon="@drawable/temperature"
+        android:title="@string/title_temp" />
 
 
 

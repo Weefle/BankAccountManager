@@ -4,6 +4,7 @@
     <string name="title_wallet">Wallets</string>
     <string name="title_transfer">Transfer</string>
     <string name="title_map">Map</string>
+    <string name="title_temp">Temperature</string>
     <string name="wallet_default_balance">Balance</string>
     <string name="wallet_default_name">Wallet Name</string>
     <string name="trans_default_name">Transaction Name</string>

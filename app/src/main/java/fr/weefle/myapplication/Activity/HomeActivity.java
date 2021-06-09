@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import fr.weefle.myapplication.Fragment.HomeFragment;
 import fr.weefle.myapplication.Fragment.MapsFragment;
+import fr.weefle.myapplication.Fragment.TempFragment;
 import fr.weefle.myapplication.Fragment.TransferFragment;
 import fr.weefle.myapplication.Fragment.WalletFragment;
 import fr.weefle.myapplication.R;
@@ -24,14 +25,8 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    showFragment(new HomeFragment());
-                    return true;
-                case R.id.navigation_wallet:
-                    showFragment(new WalletFragment());
-                    return true;
-                case R.id.navigation_transfer:
-                    showFragment(new TransferFragment());
+                case R.id.navigation_temp:
+                    showFragment(new TempFragment());
                     return true;
                 case R.id.navigation_map:
                     showFragment(new MapsFragment());
@@ -46,9 +41,9 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setSelectedItemId(R.id.navigation_wallet);
+        navView.setSelectedItemId(R.id.navigation_map);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        showFragment(new WalletFragment());
+        showFragment(new MapsFragment());
 
 
     }

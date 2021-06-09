@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import org.influxdb.InfluxDB;
+import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import fr.weefle.myapplication.R;
 
@@ -33,9 +44,42 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            final String serverURL = "http://93.3.188.171:8086", username = "admin", password = "test";
+            final InfluxDB influxDB = InfluxDBFactory.connect(serverURL, username, password);
+
+            String databaseName = "database";
+            //influxDB.query(new Query("CREATE DATABASE " + databaseName));
+            influxDB.setDatabase(databaseName);
+
+            //influxDB.write(Point.measurement("h2o_feet");
+
+            QueryResult queryResult = influxDB.query(new Query("SELECT * FROM data"));
+
+            System.out.println(queryResult);
+
+            influxDB.close();
+            final List<QueryResult.Result> transactions = queryResult.getResults();
+            List<List<Object>> objects = transactions.get(0).getSeries().get(0).getValues();
+            for(List<Object> result: objects) {
+                String json = result.get(1).toString();
+                double lon, lat, temp = 0;
+                try {
+                    JSONObject obj = new JSONObject(json);
+                    JSONObject loc = obj.getJSONObject("location");
+                    lon = loc.getDouble("lon");
+                    lat = loc.getDouble("lat");
+                    JSONObject value = obj.getJSONObject("value");
+                    temp = value.getDouble("temperature");
+                    //System.out.println(lon + " : " + lat);
+                    LatLng location = new LatLng(lat, lon);
+                    googleMap.addMarker(new MarkerOptions().position(location).title(result.get(0).toString()));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     };
 

@@ -1,10 +1,15 @@
-package fr.weefle.myapplication.Activity;
+package fr.weefle.myapplication.Fragment;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -18,41 +23,35 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.graphics.vector.Stroke;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-import fr.weefle.myapplication.Model.Transaction;
 import fr.weefle.myapplication.R;
 
-public class TrendActivity extends AppCompatActivity {
+public class TempFragment extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_trend, container, false);
+        AnyChartView anyChartView = v.findViewById(R.id.any_chart_view);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        setContentView(R.layout.activity_trend);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+
         /*URL url;
         try {
             url = new URL("https://node-red-3-nodered-enabler-prod.eu-b.kmt.orange.com/node-red/api/60a64e580d3494e8489009b7/button");
@@ -109,7 +108,7 @@ public class TrendActivity extends AppCompatActivity {
 
         //final ArrayList<Transaction> transactions = (ArrayList<Transaction>) bundle.getSerializable("transactions");
         //Collections.reverse(transactions);
-        AnyChartView anyChartView = findViewById(R.id.any_chart_view);
+
         Cartesian cartesian = AnyChart.line();
         cartesian.animation(true);
         cartesian.padding(10d, 20d, 5d, 20d);
@@ -162,5 +161,7 @@ public class TrendActivity extends AppCompatActivity {
         cartesian.legend().padding(0d, 0d, 10d, 0d);
 
         anyChartView.setChart(cartesian);
+        return v;
     }
+
 }
