@@ -46,7 +46,7 @@ public class MapsFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            final String serverURL = "http://93.3.188.171:8086", username = "admin", password = "test";
+            final String serverURL = "http://178.32.129.132:8086", username = "admin", password = "test1234";
             final InfluxDB influxDB = InfluxDBFactory.connect(serverURL, username, password);
 
             String databaseName = "database";
@@ -72,7 +72,7 @@ public class MapsFragment extends Fragment {
                     lat = loc.getDouble("lat");
                     JSONObject value = obj.getJSONObject("value");
                     temp = value.getDouble("temperature");
-                    //System.out.println(lon + " : " + lat);
+                    System.out.println(lon + " : " + lat);
                     LatLng location = new LatLng(lat, lon);
                     googleMap.addMarker(new MarkerOptions().position(location).title(result.get(0).toString()));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));

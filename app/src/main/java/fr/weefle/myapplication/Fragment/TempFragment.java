@@ -89,7 +89,7 @@ public class TempFragment extends Fragment {
             e.printStackTrace();
         }*/
         // Create an object to handle the communication with InfluxDB.
-        final String serverURL = "http://93.3.188.171:8086", username = "admin", password = "test";
+        final String serverURL = "http://178.32.129.132:8086", username = "admin", password = "test1234";
         final InfluxDB influxDB = InfluxDBFactory.connect(serverURL, username, password);
 
         String databaseName = "database";
