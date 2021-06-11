@@ -11,4 +11,4 @@
         android:layout_height="match_parent"
         ></com.anychart.AnyChartView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
