@@ -9,11 +9,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import fr.weefle.myapplication.Fragment.HomeFragment;
-import fr.weefle.myapplication.Fragment.MapsFragment;
+import fr.weefle.myapplication.Fragment.MapFragment;
+import fr.weefle.myapplication.Fragment.PositionFragment;
 import fr.weefle.myapplication.Fragment.TempFragment;
-import fr.weefle.myapplication.Fragment.TransferFragment;
-import fr.weefle.myapplication.Fragment.WalletFragment;
 import fr.weefle.myapplication.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -29,7 +27,10 @@ public class HomeActivity extends AppCompatActivity {
                     showFragment(new TempFragment());
                     return true;
                 case R.id.navigation_map:
-                    showFragment(new MapsFragment());
+                    showFragment(new PositionFragment());
+                    return true;
+                case R.id.navigation_maps:
+                    showFragment(new MapFragment());
                     return true;
 
         }
@@ -43,12 +44,12 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setSelectedItemId(R.id.navigation_map);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        showFragment(new MapsFragment());
+        showFragment(new PositionFragment());
 
 
     }
 
-    private void showFragment(Fragment fragment) {
+    public void showFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right)

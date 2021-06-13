@@ -29,9 +29,12 @@ import java.util.Collections;
 import java.util.List;
 
 import fr.weefle.myapplication.Adapter.TransactionAdapter;
+import fr.weefle.myapplication.Model.Data;
 import fr.weefle.myapplication.Model.Transaction;
 import fr.weefle.myapplication.Model.Wallet;
 import fr.weefle.myapplication.R;
+
+import static fr.weefle.myapplication.MainActivity.datas;
 
 public class TransactionActivity extends AppCompatActivity {
 
@@ -45,12 +48,12 @@ public class TransactionActivity extends AppCompatActivity {
         //TODO récupérer infos en intent ou arguments du wallet pour avoir les transactions
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        final ArrayList<Transaction> transactions = (ArrayList<Transaction>) bundle.getSerializable("transactions");
+        final ArrayList<Data> transactions = (ArrayList<Data>) bundle.getSerializable("datas");
 
         Collections.reverse(transactions);
 
         ListView shopListView = findViewById(R.id.transaction_list_view);
-        shopListView.setAdapter(new TransactionAdapter(this, transactions));
+        shopListView.setAdapter(new TransactionAdapter(this, datas));
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +63,7 @@ public class TransactionActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplication(), TrendActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("transactions", transactions);
+                    bundle.putSerializable("datas", transactions);
                     intent.putExtras(bundle);
                     startActivity(intent);
 

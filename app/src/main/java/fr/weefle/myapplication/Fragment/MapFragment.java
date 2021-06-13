@@ -41,15 +41,9 @@ import fr.weefle.myapplication.MainActivity;
 import fr.weefle.myapplication.Model.Data;
 import fr.weefle.myapplication.R;
 
-public class MapsFragment extends Fragment {
+public class MapFragment extends Fragment {
 
     private FloatingActionButton button;
-
-    public Data data;
-
-    public MapsFragment(Data data) {
-        this.data = data;
-    }
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -66,11 +60,13 @@ public class MapsFragment extends Fragment {
         public void onMapReady(GoogleMap googleMap) {
 
 
+            for(Data data : MainActivity.datas) {
                 LatLng location = new LatLng(data.getLat(), data.getLon());
-                googleMap.addMarker(new MarkerOptions().position(location).title("Date: " + data.getDate() +" Time: " + data.getTime()));
+                googleMap.addMarker(new MarkerOptions().position(location).title("Date: " + data.getDate() + " Time: " + data.getTime()));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 
 
+            }
 
         }
     };
@@ -132,7 +128,7 @@ public class MapsFragment extends Fragment {
         return v;
     }
 
-   @Override
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment =

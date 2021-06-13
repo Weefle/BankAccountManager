@@ -11,9 +11,9 @@
         android:id="@+id/trans_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        app:srcCompat="@drawable/commerce" />
+        android:layout_marginTop="10dp"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
     <RelativeLayout
         android:layout_margin="10dp"
         android:layout_width="wrap_content"
